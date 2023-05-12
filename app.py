@@ -11,6 +11,6 @@ option = st.selectbox('Select an option', ['Option 1', 'Option 2', 'Option 3'])
 st.write('You selected:', option)
 value = st.slider('Slide me', 0, 10)
 st.write('You selected:', value)
-file = st.file_uploader('Upload file', type=['csv', 'txt'])
+file = st.file_uploader('Upload file', type=['csv', 'txt','png'])
 if file:
     st.write(file.read())
