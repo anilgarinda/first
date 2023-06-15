@@ -16,6 +16,7 @@ if file:
     st.write(file.read())
 import streamlit as st
 from pytube import YouTube
+pip install pytube
 
 # Set page title
 st.title("YouTube Video Downloader")
