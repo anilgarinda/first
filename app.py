@@ -15,10 +15,9 @@ def download_video(video_url):
 
 
 def main():
-    st.title("YouTube Video Downloader")
-
+    st.title("YouTube Video Downloader created by bhoi")
     # Input field
-    video_url = st.text_input("Enter the YouTube video URL:")
+    video_url = st.text_input("jo  YouTube video download krna h uski link daal:")
 
     # Download button
     if st.button("Download"):
