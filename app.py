@@ -1,7 +1,18 @@
 import os
+import platform
 import streamlit as st
 from pytube import YouTube
 from pathlib import Path
+
+def get_default_output_path():
+    if platform.system() == "Windows":
+        return str(Path.home() / "Downloads")
+    elif platform.system() == "Darwin":  # macOS
+        return str(Path.home() / "Downloads")
+    elif platform.system() == "Linux":
+        return str(Path.home() / "Downloads")
+    else:
+        return None
 
 def download_video(video_url, output_path):
     try:
@@ -17,18 +28,17 @@ def main():
     video_url = st.text_input("Enter the YouTube video URL:")
     output_path = None
 
-    if st.button("Choose Output Path"):
-        output_path = st.file_uploader("Select output path", type="directory", key="output_path")
+    if st.button("Download Video"):
+        if video_url:
+            if platform.system() == "Android":
+                output_path = str(Path.home() / "Pictures")
+            else:
+                output_path = get_default_output_path()
 
-    download_button = st.button("Download Video")
-
-    if download_button:
-        if video_url and output_path:
-            output_path = Path(output_path.name).resolve()
-            success, message = download_video(video_url, str(output_path))
+            success, message = download_video(video_url, output_path)
             st.write(message)
         else:
-            st.write("Please provide both the video URL and select the output path.")
+            st.write("Please enter the YouTube video URL.")
 
 if __name__ == "__main__":
     main()
