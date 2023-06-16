@@ -18,10 +18,10 @@ def download_video(video_url, output_path):
     try:
         yt = YouTube(video_url)
         video = yt.streams.get_highest_resolution()
-        video.download(output_path=output_path)
-        return True, f"Video downloaded successfully! Saved at: {output_path}"
+        video_file = video.download(output_path=output_path)
+        return True, video_file
     except Exception as e:
-        return False, f"Error occurred: {str(e)}"
+        return False, str(e)
 
 def main():
     st.title("YouTube Video Downloader")
@@ -31,14 +31,19 @@ def main():
     if st.button("Download Video"):
         if video_url:
             if platform.system() == "Android":
-                output_path = str(Path.home() / "Pictures")
+                output_path = str(Path.home() / "Downloads")
             else:
                 output_path = get_default_output_path()
 
-            success, message = download_video(video_url, output_path)
-            st.write(message)
+            success, video_file = download_video(video_url, output_path)
+            if success:
+                st.success("Video downloaded successfully!")
+                st.markdown(f"Download Link: [Download Video]({video_file})")
+            else:
+                st.error("Error occurred during download.")
+                st.error(video_file)
         else:
-            st.write("Please enter the YouTube video URL.")
+            st.warning("Please enter the YouTube video URL.")
 
 if __name__ == "__main__":
     main()
